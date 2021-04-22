@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import React, { useState } from 'react';
 
-function App() {
+const App = () => {
+  const [data, setData] = useState(null);
+  axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+  const onClick = () => {
+    axios.get('/todos/1').then((res) => {
+      setData(res.data);
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        <button onClick={onClick}>불러오기</button>
+      </div>
+      {data && (
+        <textarea
+          row={7}
+          value={JSON.stringify(data, null, 2)}
+          readOnly={true}
+        ></textarea>
+      )}
     </div>
   );
-}
+};
 
 export default App;
