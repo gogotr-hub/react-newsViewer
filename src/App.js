@@ -1,28 +1,19 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import NewsList from './components/NewsList'
+
+
+const apiURL = "https://newsapi.org/v2/top-headlines?country=kr&apiKey=20fc193dcf714b8d88294dd56bd60425"
 
 const App = () => {
   const [data, setData] = useState(null);
-  axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
   const onClick = () => {
-    axios.get('/todos/1').then((res) => {
+    axios.get(apiURL).then((res) => {
       setData(res.data);
     });
   };
-  return (
-    <div>
-      <div>
-        <button onClick={onClick}>불러오기</button>
-      </div>
-      {data && (
-        <textarea
-          row={7}
-          value={JSON.stringify(data, null, 2)}
-          readOnly={true}
-        ></textarea>
-      )}
-    </div>
-  );
+
+  return <NewsList/>;
 };
 
 export default App;
